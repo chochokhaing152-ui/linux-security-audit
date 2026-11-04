@@ -3,3 +3,4 @@
 .env
 .env.*
 secrets/
+database_password.txt
