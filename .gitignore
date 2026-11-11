@@ -4,3 +4,6 @@
 .env.*
 secrets/
 database_password.txt
+test-data/
+reports/audit_report.txt
+*.v1-backup

@@ -4,17 +4,39 @@
 Linux Security Audit Tool
 
 ## Audit Objective
-Check whether sensitive files have secure Linux permissions.
+Identify potentially insecure Linux file permissions and report security findings.
+
+## Version 1 — Permission Checker
+
+- Checks a sensitive file's permissions.
+- Expects permission mode 600.
+- Reports PASS for secure permissions and WARNING for insecure permissions.
+
+## Version 2 — Directory Security Scanner
+
+- Recursively scans regular files in a selected directory.
+- Identifies sensitive-looking files readable by group or others.
+- Identifies files writable by group or others.
+- Reports access errors.
+- Generates a detailed audit report.
+- Does not automatically modify permissions.
 
 ## Test Results
 
-| Test | Permission | Expected Result | Status |
-|---|---|---|---|
-| Secure file | 600 | PASS | Passed |
-| Insecure file | 644 | WARNING | Passed |
+| Test | Expected Result | Result |
+|---|---|---|
+| Sensitive file with permission 644 | Security finding | Passed |
+| File with permission 777 | Security finding | Passed |
+| Ordinary file with permission 644 | No finding | Passed |
+| Clean directory | No security findings | Passed |
+| Inaccessible directory | Access error reported | Passed |
 
 ## Security Recommendation
-Use chmod 600 for sensitive files so only the file owner can read and write them.
 
-## Tool
-Bash, Ubuntu, Linux stat and chmod commands.
+Sensitive files should have restrictive permissions. For example, chmod 600 allows only the owner to read and write a file.
+
+Review scanner findings and apply corrections manually.
+
+## Tools and Technologies
+
+Bash, Ubuntu (WSL), Linux permissions, find, stat, chmod, mktemp, Git and GitHub.
